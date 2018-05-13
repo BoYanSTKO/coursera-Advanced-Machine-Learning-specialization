@@ -12,8 +12,13 @@ class Grader(object):
                       ('UUbsF', '1.1 (Bob trajectory)'),
                       ('FFmXD', '1.2 (Alice mean)'), 
                       ('uWPFR', '1.2 (Bob mean)'), 
-                      ('nkkem', '1.3'), 
-                      ('dyuVW', '1.4')
+                      ('nkkem', '1.3 (Bob and Alice prices correlation)'),
+                      ('dyuVW', '1.4 (depends on the random data or not)'),
+                      ('r1VVR', '2.1 (MAP for age coef)'),
+                      ('5wFjO', '2.1 (MAP for aducation coef)'),
+                      ('sn9Lu', '2.2 (credible interval lower bound)'),
+                      ('JHRF9', '2.2 (credible interval upper bound)'),
+                      ('0StUi', '2.3 (does the data suggest gender discrimination?)'),
                       ])
         self.answers = {key: None for key in self.parts}
 
@@ -79,6 +84,15 @@ class Grader(object):
     
     def submit_simulation_depends(self, answer):
         self.submit_part('dyuVW', answer)
-    
-
+        
+    def submit_pymc_map_estimates(self, beta_age_coefficient, beta_education_coefficient):
+        self.submit_part('r1VVR', str(self.ravel_output(beta_age_coefficient)))
+        self.submit_part('5wFjO', str(self.ravel_output(beta_education_coefficient)))
+        
+    def submit_pymc_odds_ratio_interval(self, odds_ratio_lower_bound, odds_ratio_upper_bound):
+        self.submit_part('sn9Lu', str(self.ravel_output(odds_ratio_lower_bound)))
+        self.submit_part('JHRF9', str(self.ravel_output(odds_ratio_upper_bound)))
+        
+    def submit_is_there_discrimination(self, answer):
+        self.submit_part('0StUi', answer)
     

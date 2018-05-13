@@ -1,0 +1,3 @@
+data/
+thread_embeddings_by_tags/
+*.pkl
